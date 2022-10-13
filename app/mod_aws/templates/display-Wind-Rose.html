@@ -12,6 +12,7 @@
 <script type="text/javascript" src="{{ url_for('static', filename='lib/highcharts-10.2.1/modules/exporting.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='lib/highcharts-10.2.1/modules/accessibility.js') }}"></script>
 <link rel="stylesheet" type="text/css" href="{{ url_for('aws.static', filename='css/aws.css') }}">
+<script type="text/javascript" src="{{ url_for('static', filename='js/logo.js') }}"></script>
 <style>
     /**/
 #contWindRose {
@@ -124,8 +125,6 @@
 <script type="text/javascript">
 var DATA_USERS = JSON.parse('{{ dataUser | tojson }}');
 var MTO_INIT = JSON.parse('{{ metInfo | tojson }}');
-$('link[rel="shortcut icon"]').attr("href", "/static/images/" + MTO_INIT.iconImage);
-$('.meteo-logo').attr("src", "/static/images/" + MTO_INIT.metLogo);
 </script>
 <!--  -->
 {% if session.logged_in %}

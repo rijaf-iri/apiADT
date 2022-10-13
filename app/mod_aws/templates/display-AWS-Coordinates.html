@@ -12,6 +12,7 @@
 <script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/Leaflet-easyPrint/bundle.js') }}"></script>
 <link rel="stylesheet" type="text/css" href="{{ url_for('aws.static', filename='css/aws.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/leaflet-site.css') }}" />
+<script type="text/javascript" src="{{ url_for('static', filename='js/logo.js') }}"></script>
 <style>
     #mapAWSCoords {
     width: 100%;
@@ -128,8 +129,6 @@
 <script type="text/javascript">
 var DATA_USERS = JSON.parse('{{ dataUser | tojson }}');
 var MTO_INIT = JSON.parse('{{ metInfo | tojson }}');
-$('link[rel="shortcut icon"]').attr("href", "/static/images/" + MTO_INIT.iconImage);
-$('.meteo-logo').attr("src", "/static/images/" + MTO_INIT.metLogo);
 </script>
 {% if session.logged_in %}
 <script type="text/javascript" src="{{ url_for('aws.static', filename='js/export-AWS-Coordinates.js') }}"></script>
