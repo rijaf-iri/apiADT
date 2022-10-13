@@ -1,26 +1,10 @@
 // var TS_DATE = new Date();
 var TS_DATE = new Date(2020, 10, 30, 23, 50, 0);
 
-// var MTO_INIT;
-// var mapCenterLON = -1.031824;
-// var mapCenterLAT = 7.956025;
-// var mapZoom = 6.5;
-// var mapMetService = "GMet";
-// var metServiceURL = "https://www.meteo.gov.gh/gmet/";
-// var initAWS = '1_AD510927-TEMA';
-// var initHTMLAWS = "TEMA - AD510927 - Adcon";
-// var initVAR = "5_1";
-// var initSTAT = "4";
-// var initPAR = "Tot";
-// var initHTMLVAR = "Precipitation - Total";
-// // speed_direction
-// var initWindHGT = "10_10";
-// var firstYear = 2015;
-
 /////////////////
 // change to 0 in production
-var TRACE_ERROR = 1;
-// var TRACE_ERROR = 0;
+// var TRACE_ERROR = 1;
+var TRACE_ERROR = 0;
 
 var AWS_DATA = new Object();
 AWS_DATA.status = "no-data";

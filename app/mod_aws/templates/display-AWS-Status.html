@@ -115,6 +115,8 @@
 <script type="text/javascript">
 var DATA_USERS = JSON.parse('{{ dataUser | tojson }}');
 var MTO_INIT = JSON.parse('{{ metInfo | tojson }}');
+$('link[rel="shortcut icon"]').attr("href", "/static/images/" + MTO_INIT.iconImage);
+$('.meteo-logo').attr("src", "/static/images/" + MTO_INIT.metLogo);
 </script>
 {% if session.logged_in %}
 {% if session.data.useraction == 0 %}
