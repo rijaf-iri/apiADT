@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% block head %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %} </title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/meteo_favicon.png') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='lib/jquery-3.6.1.min.js') }}"></script>
+    <!--  -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='lib/bootstrap-3.4.1/css/bootstrap.min.css') }}" />
+    <script type="text/javascript" src="{{ url_for('static', filename='lib/bootstrap-3.4.1/js/bootstrap.min.js') }}"></script>
+    <!--  -->
+    <script type="text/javascript" src="{{ url_for('static', filename='lib/dateformat.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar-brand-dropdown-submenu.css') }}" />
+    {{ JSGlue.include() }}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/adt.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/adt-colorkeys.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/adt-maps.js') }}"></script>
+    {% endblock %}
+</head>
+
+<body>
+    {% include 'navigation.html' %}
+    {% block content %}{% endblock %}
+    {% block javascript %}{% endblock %}
+</body>
+
+</html>

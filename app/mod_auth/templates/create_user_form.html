@@ -1,0 +1,78 @@
+<div id="register-userf" class="register-form">
+    <h2>Create New User</h2>
+    <p>Fill in this form to create an account.</p>
+    <hr>
+    <div id="divCreateUser">
+        <table id="registerInput">
+            <tr>
+                <td> <label for="fullname">Full Name</label> </td>
+                <td> <input id="fullname" type="text" value="">
+                </td>
+            </tr>
+            <tr>
+                <td> <label for="institution">Institution</label> </td>
+                <td> <input id="institution" type="text" value="">
+                </td>
+            </tr>
+            <tr>
+                <td> <label for="email">Email Address</label> </td>
+                <td> <input id="email" type="text" value="">
+                </td>
+            </tr>
+            <tr>
+                <td> <label for="username">Username</label> </td>
+                <td> <input id="username" type="text" value="">
+                </td>
+            </tr>
+            <tr>
+                <td> <label for="password">New Password</label> </td>
+                <td> <input id="password" type="password" value="">
+                </td>
+            </tr>
+            <tr>
+                <td> <label for="confirm">Repeat Password</label> </td>
+                <td> <input id="confirm" type="password" value="">
+                </td>
+            </tr>
+        </table>
+        <table id="registerUserLvl">
+            <tr>
+                <td><label for="userlevel">User Access</label></td>
+                <td><select id="userlevel"></select></td>
+                <td><label for="useraction">User Action</label></td>
+                <td><select id="useraction"></select></td>
+            </tr>
+        </table>
+        <table id="registerUserStn">
+            <tr>
+                <td><label for="selectstations">Stations Selection</label> </td>
+                <td>
+                    <select id="selectstations"></select>
+                    &nbsp;&nbsp;
+                    <button id="userSelectStations" type="button" class="btn btn-default">Select Stations</button>
+                </td>
+            </tr>
+        </table>
+        <div class="div-submit-btn">
+            <button id="btn-submit-user" type="button" class="btn btn-primary btn-submit-user">Submit</button>
+        </div>
+    </div>
+    <hr>
+    <div id='register-response' class='response-fail'></div>
+    <p> <strong>User Access Levels </strong></p>
+    <ul>
+        <li><strong>Administrator :</strong>&nbsp; super user, able to create account</li>
+        <li><strong>All Stations :</strong>&nbsp; access to all stations</li>
+        <li><strong>Selected Stations :</strong>&nbsp; access to a selected stations</li>
+    </ul>
+    <p> <strong>User Action </strong></p>
+    <ul>
+        <li><strong>Display and Download :</strong>&nbsp; able to download data and display observations in a table, charts and maps </li>
+        <li><strong>Display Only :</strong>&nbsp; display observation in a charts and maps</li>
+    </ul>
+    <p> <strong>Stations Selection </strong></p>
+    <ul>
+        <li><strong>Geographic :</strong>&nbsp; select stations from a geographical support (polygons) </li>
+        <li><strong>Stations :</strong>&nbsp; select stations from a list </li>
+    </ul>
+</div>

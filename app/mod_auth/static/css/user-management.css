@@ -1,0 +1,154 @@
+#idTable {
+    margin-top: 10px;
+    max-height: 75vh;
+}
+
+.jsonTable {
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+}
+
+.jsonTable td,
+#jsonTable th {
+    border: 1px solid #ddd;
+    /*padding: 5px;*/
+}
+
+.jsonTable tr:nth-child(even) {
+    background-color: #daedf0;
+}
+
+.jsonTable tr:hover {
+    background-color: #ddd;
+}
+
+.jsonTable th {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    text-align: center;
+    background-color: #3071a9;
+    color: white;
+}
+
+.jsonTable td:first-child {
+    font-weight: bold;
+}
+
+/* ********** */
+.register-form {
+    width: 80%;
+    margin: 20px auto;
+    padding: 16px;
+    background-color: white;
+}
+
+.register-form hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 10px;
+}
+
+#registerInput {
+    width: 100%;
+}
+
+#registerInput td:first-child {
+    width: 20%;
+    padding-right: 10px;
+    text-align: right;
+}
+
+#registerInput #fullname,
+#registerInput #institution,
+#registerInput #email {
+    width: 100%;
+}
+
+#registerInput #rmUsername,
+#registerInput #username,
+#registerInput #password,
+#registerInput #confirm {
+    width: 50%;
+}
+
+#registerInput input[type=text],
+#registerInput input[type=password] {
+    padding: 5px;
+    margin: 5px 0 5px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+}
+
+#registerInput input[type=text]:focus,
+#registerInput input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+#registerUserLvl {
+    width: 100%;
+    margin-top: 10px;
+}
+
+#registerUserLvl td:nth-child(2n+1) {
+    width: 20%;
+    padding-right: 10px;
+    text-align: right;
+}
+
+#registerUserLvl td:nth-child(2) {
+    width: 10%;
+}
+
+#registerUserStn {
+    width: 100%;
+    margin-top: 10px;
+}
+
+#registerUserStn td:first-child {
+    width: 20%;
+    padding-right: 10px;
+    text-align: right;
+}
+
+.div-submit-btn {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn-submit-user {
+    width: 30%;
+    min-height: 38px;
+    border-radius: 2px;
+    text-align: center;
+}
+
+.errors {
+    color: red;
+}
+
+/*select aws list*/
+.user-select-aws-tab {
+    width: 100%;
+}
+
+.user-select-aws-list-div {
+    width: 90%;
+    display: grid;
+    grid-template-columns: 1fr 0.1fr 1fr 0.3fr;
+    align-items: center;
+    grid-column-gap: 1px;
+    /*column-gap: 1px;*/
+    margin: 10px 40px;
+}
+
+.user-select-aws-map-div {
+    width: 90%;
+    display: grid;
+    grid-template-columns: 1fr 0.1fr 1fr 1fr;
+    grid-template-rows: 0.1fr 1fr;
+    align-items: center;
+    grid-gap: 10px;
+    margin: 10px 40px;
+}

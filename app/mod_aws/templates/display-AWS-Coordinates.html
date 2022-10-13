@@ -1,0 +1,137 @@
+{% set marker_pth = url_for('static', filename="lib/Plugins-leaflet/leaflet-color-markers/img/") %}
+{% extends "layout.html" %}
+{% block title %} {{metInfo.pageTitle}} {% endblock %}
+{% block head %}
+{{ super() }}
+<meta id="marker-pth" data-url="{{marker_pth}}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/leaflet-1.9.0/leaflet.css') }}">
+<script type="text/javascript" src="{{ url_for('static', filename='lib/leaflet-1.9.0/leaflet.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/Plugins-leaflet/L.Control.MousePosition/L.Control.MousePosition.css') }}">
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/L.Control.MousePosition/L.Control.MousePosition.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/leaflet-color-markers/js/leaflet-color-markers.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/Leaflet-easyPrint/bundle.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('aws.static', filename='css/aws.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/leaflet-site.css') }}" />
+<style>
+    #mapAWSCoords {
+    width: 100%;
+    height: 80vh;
+    }
+    #idTable, #crdTable {
+    max-height: 80vh;
+    }
+    #downLeafletMap{
+    margin: 10px 0 10px 0;
+    }
+    .pinstatus{
+    height: 35px;
+    width: 20px;
+    margin-right: 10px;
+    }
+
+    </style>
+{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row wrapper">
+        <!-- Left Panel -->
+        <div class="col-sm-3 input-sidebar-left">
+            <div class="row">
+                <div class="col-md-12 sidebar box">
+                    <div class="input-container">
+                        <div class="input-container-title">
+                            <span>Legend</span>
+                            <span class="glyphicon glyphicon-plus input-container-icon"></span>
+                        </div>
+                        <div class="input-container-content">
+                            <div id="aws-network-table"></div>
+                        </div>
+                    </div>
+                    <!--  -->
+                    <div class="input-container">
+                        <div class="input-container-title">
+                            <span>AWS Networks</span>
+                            <span class="glyphicon glyphicon-plus input-container-icon"></span>
+                        </div>
+                        <div class="input-container-content">
+                            <div>
+                                <label class="control-label">Select AWS network</label>
+                                <select id="awsnet" class="form-control">
+                                </select>
+                            </div>
+                            <div>
+                                <button id="awsNetDisp" class="btn btn-primary btn-block"> Display AWS Network </button>
+                            </div>
+                            {% if session.logged_in %}
+                            <div>
+                                <button id="awsCrdTable" class="btn btn-primary btn-block"><i class="glyphicon glyphicon-refresh glyphicon-refresh-animate" style="display:none;"></i> Display Coordinates Table</button>
+                            </div>
+                            {% endif %}
+                            <div>
+                                <button id="awsNetDispAll" class="btn btn-primary btn-block"> Display All Networks </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  -->
+                    <div class="input-container">
+                        <div class="input-container-title">
+                            <span>Download</span>
+                            <span class="glyphicon glyphicon-plus input-container-icon"></span>
+                        </div>
+                        <div class="input-container-content">
+                            <div>
+                                <button id="downLeafletMap" class="btn btn-primary btn-block"> Networks Map </button>
+                            </div>
+                            {% if session.logged_in %}
+                            {% if session.data.useraction == 0 %}
+                            <div>
+                                <button id="downMissCoords" class="btn btn-primary btn-block"> Missing Coordinates Table </button>
+                            </div>
+                            <div>
+                                <button id="downNetworkTable" class="btn btn-primary btn-block"> AWS Network Table </button>
+                            </div>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!--  -->
+                </div>
+            </div>
+        </div>
+        <!-- Right panel -->
+        <div class="col-sm-9 main box">
+            <ul class="nav nav-tabs" id="myTab">
+                <li class="active"><a href="#mapstnloc" data-toggle="tab">Stations locations</a></li>
+                {% if session.logged_in %}
+                <li><a href="#misscoords" data-toggle="tab">Missing coordinates</a></li>
+                <li><a href="#awstable" data-toggle="tab">AWS Network Table</a></li>
+                {% endif %}
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="mapstnloc">
+                    <div id="mapAWSCoords"></div>
+                </div>
+                {% if session.logged_in %}
+                <div class="tab-pane" id="misscoords">
+                    <div id="idTable" class="table-responsive"> </div>
+                </div>
+                <div class="tab-pane" id="awstable">
+                    <div id="crdTable" class="table-responsive"> </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript">
+var DATA_USERS = JSON.parse('{{ dataUser | tojson }}');
+var MTO_INIT = JSON.parse('{{ metInfo | tojson }}');
+</script>
+{% if session.logged_in %}
+<script type="text/javascript" src="{{ url_for('aws.static', filename='js/export-AWS-Coordinates.js') }}"></script>
+{% endif %}
+<script type="text/javascript" src="{{ url_for('static', filename='geojson/country-boundaries.geojson') }}"></script>
+<script type="text/javascript" src="{{ url_for('aws.static', filename='js/display-AWS-Coordinates.js') }}"></script>
+{% endblock %}

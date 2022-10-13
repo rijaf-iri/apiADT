@@ -1,0 +1,106 @@
+{% extends "layout.html" %}
+{% block title %} {{metInfo.pageTitle}} {% endblock %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/leaflet-1.9.0/leaflet.css') }}">
+<script type="text/javascript" src="{{ url_for('static', filename='lib/leaflet-1.9.0/leaflet.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/Plugins-leaflet/L.Control.MousePosition/L.Control.MousePosition.css') }}">
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/L.Control.MousePosition/L.Control.MousePosition.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/Leaflet.Spin-1.1.2/spin.js/spin.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/Leaflet.Spin-1.1.2/leaflet.spin.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/Leaflet-easyPrint/bundle.js') }}"></script>
+<!--  -->
+<script src="{{ url_for('static', filename='lib/Plugins-leaflet/geotiff-2.0.5/geotiff.js') }}"></script>
+<script src="{{ url_for('static', filename='lib/Plugins-leaflet/plotty-0.4.9/plotty.min.js') }}"></script>
+<script src="{{ url_for('static', filename='lib/Plugins-leaflet/leaflet-geotiff/leaflet-geotiff.js') }}"></script>
+<script src="{{ url_for('static', filename='lib/Plugins-leaflet/leaflet-geotiff/leaflet-geotiff-plotty.js') }}"></script>
+<!--  -->
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/display-raster-value.js') }}"></script>
+<!--  -->
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/select2-4.1.0/dist/css/select2.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/select2-bootstrap-theme-0.1.0/dist/select2-bootstrap.min.css') }}">
+<script type="text/javascript" src="{{ url_for('static', filename='lib/select2-4.1.0/dist/js/select2.full.min.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('aws.static', filename='css/gridded-map.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('aws.static', filename='css/aws.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/leaflet-site.css') }}" />
+{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row wrapper">
+        <!-- Left Panel -->
+        <div class="col-sm-3 input-sidebar-left">
+            <div class="row">
+                <div class="col-md-12 sidebar box">
+                    <div class="input-container">
+                        <div class="input-container-title">
+                            <span>Rainfall Data</span>
+                            <span class="glyphicon glyphicon-plus input-container-icon"></span>
+                        </div>
+                        <div class="input-container-content">
+                            <div>
+                                <label class="control-label">Select Temporal Resolution</label>
+                                <select id="timestepDispTS" class="form-control"></select>
+                            </div>
+                            <!--  -->
+                            <div>
+                                <label class="control-label">Select Data Source</label>
+                                <select id="rfeProducts" class="form-control"> </select>
+                            </div>
+                            <div>
+                                <label class="control-label">Select Date</label>
+                                <br>
+                                <table class="aws-select-time  map-select-time"></table>
+                            </div>
+                            <!--  -->
+                            <div id="butMapVar">
+                                <button id="AWSMapPrev" class="btn btn-primary btn-block">Previous</button>
+                                <button id="AWSMapDis" class="btn btn-primary btn-block">Display</button>
+                                <button id="AWSMapNext" class="btn btn-primary btn-block">Next</button>
+                            </div>
+                            <!--  -->
+                            <div id="colKeyMapVar"></div>
+                            <!--  -->
+                            <div class="download">
+                                <button type="button" id="downLeafletMap" class="btn btn-primary btn-block"> Download Map </button>
+                            </div>
+                            <!--  -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Right panel -->
+        <div class="col-sm-9 main box">
+            <ul class="nav nav-tabs" id="myTab">
+                <li class="active"><a href="#maprfedata" data-toggle="tab">Rainfall Data Map</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="maprfedata">
+                    <!--  -->
+                    <div class="leaflet-map-wrapper">
+                        <div class="leaflet-map-row div-row1">
+                            <div class="leaflet-map-col div-title">Rainfall data</div>
+                            <!-- <div class="leaflet-map-col div-empty"></div> -->
+                        </div>
+                        <div class="leaflet-map-row div-row2">
+                            <div id="mapRFEDisp" class="leaflet-map-col div-cont"></div>
+                            <!-- <div class="leaflet-map-col div-ckey"></div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript">
+var DATA_USERS = JSON.parse('{{ dataUser | tojson }}');
+var MTO_INIT = JSON.parse('{{ metInfo | tojson }}');
+var DATA_RFE = JSON.parse('{{ dataRFE | tojson }}');
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename='geojson/country-boundaries.geojson') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/print-screen-map.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('aws.static', filename='js/params-IRIDL-PrecipData.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('aws.static', filename='js/display-IRIDL-PrecipData.js') }}"></script>
+{% endblock %}

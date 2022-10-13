@@ -1,0 +1,191 @@
+{% extends "layout.html" %}
+{% block title %} {{metInfo.pageTitle}} {% endblock %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/leaflet-1.9.0/leaflet.css') }}">
+<script type="text/javascript" src="{{ url_for('static', filename='lib/leaflet-1.9.0/leaflet.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/Plugins-leaflet/L.Control.MousePosition/L.Control.MousePosition.css') }}">
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/L.Control.MousePosition/L.Control.MousePosition.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/Plugins-leaflet/leaflet-search/src/leaflet-search.css') }}">
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/leaflet-search/src/leaflet-search.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/Leaflet.Spin-1.1.2/spin.js/spin.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/Leaflet.Spin-1.1.2/leaflet.spin.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/Leaflet-easyPrint/bundle.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/select2-4.1.0/dist/css/select2.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/select2-bootstrap-theme-0.1.0/dist/select2-bootstrap.min.css') }}">
+<script type="text/javascript" src="{{ url_for('static', filename='lib/select2-4.1.0/dist/js/select2.full.min.js') }}"></script>
+<!--  -->
+<script type="text/javascript" src="{{ url_for('static', filename='lib/highcharts-10.2.1/highstock.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/highcharts-10.2.1/modules/data.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/highcharts-10.2.1/highcharts-more.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/highcharts-10.2.1/modules/exporting.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/highcharts-10.2.1/modules/accessibility.js') }}"></script>
+<!--  -->
+<link rel="stylesheet" type="text/css" href="{{ url_for('aws.static', filename='css/aws.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/leaflet-site.css') }}" />
+<style>
+    #accumulTime{
+    height: 1.4em;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row wrapper">
+        <!-- Left Panel -->
+        <div class="col-sm-3 input-sidebar-left">
+            <div class="row">
+                <!-- data source -->
+                <div class="col-md-12 sidebar box">
+                    <div class="input-container">
+                        <div class="input-container-title">
+                            <span>Accumulated Total Rainfall </span>
+                            <span class="glyphicon glyphicon-plus input-container-icon"></span>
+                        </div>
+                        <div class="input-container-content">
+                            <div style="text-align: center;">
+                                <br>
+                                <span>
+                                    <input type="number" id="accumulTime" step="1" min="1" max="72" value="1">
+                                    <select id="timestepDispTS">
+                                        <option value="hourly" selected>Hour</option>
+                                        <option value="daily">Day</option>
+                                    </select>
+                                    <label>Accumulation</label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Plot Time series -->
+                <div class="col-md-12 sidebar box">
+                    <div class="input-container">
+                        <div class="input-container-title">
+                            <span>Time Series</span>
+                            <span class="glyphicon glyphicon-plus input-container-icon"></span>
+                        </div>
+                        <div class="input-container-content">
+                            <div>
+                                <label class="control-label">Select Station</label>
+                                <select id="stationDispAWS" class="form-control"> </select>
+                            </div>
+                            <!--  -->
+                            <div>
+                                <label class="control-label">Start Date</label>
+                                <br>
+                                <table class="aws-select-time  ts-start-time"></table>
+                            </div>
+                            <!--  -->
+                            <div>
+                                <label class="control-label">End Date</label>
+                                <br>
+                                <table class="aws-select-time ts-end-time"></table>
+                            </div>
+                            <br>
+                            <!--  -->
+                            <div>
+                                <button id="plotAWSGraph" class="btn btn-primary btn-block"><i class="glyphicon glyphicon-refresh glyphicon-refresh-animate" style="display:none;"></i> Display Chart</button>
+                            </div>
+                            <!--  -->
+                            {% if session.logged_in %}
+                            {% if session.data.useraction == 0 %}
+                            <div class="download">
+                                <button id="downAWSAccumTS" class="btn btn-primary btn-block">Download Time Series</button>
+                            </div>
+                            {% endif %}
+                            {% endif %}
+                            <!--  -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Plot spatial -->
+                <div class="col-md-12 sidebar box">
+                    <div class="input-container">
+                        <div class="input-container-title">
+                            <span>Map</span>
+                            <span class="glyphicon glyphicon-plus input-container-icon"></span>
+                        </div>
+                        <div class="input-container-content">
+                            <div>
+                                <label class="control-label">Select Date</label>
+                                <br>
+                                <table class="aws-select-time  map-select-time"></table>
+                            </div>
+                            <!--  -->
+                            <div id="butMapVar">
+                                <button id="AWSMapPrev" class="btn btn-primary btn-block">Previous</button>
+                                <button id="AWSMapDis" class="btn btn-primary btn-block">Display</button>
+                                <button id="AWSMapNext" class="btn btn-primary btn-block">Next</button>
+                            </div>
+                            <!--  -->
+                            <div id="colKeyMapVar"></div>
+                            <!--  -->
+                            <div style="display: none;">
+                                <span>
+                                    <input type="checkbox" id="dispselaws"> Display Selected Stations
+                                </span>
+                            </div>
+                            <!--  -->
+                            {% if session.logged_in %}
+                            {% if session.data.userlevel == 2 %}
+                            <div>
+                                <span>
+                                    <input type="checkbox" id="dispuseraws" checked> Display User Stations Only
+                                </span>
+                            </div>
+                            {% endif %}
+                            {% endif %}
+                            <!--  -->
+                            <div class="download">
+                                <button type="button" id="downLeafletMap" class="btn btn-primary btn-block"> Download Map </button>
+                            </div>
+                            <!--  -->
+                            {% if session.logged_in %}
+                            {% if session.data.useraction == 0 %}
+                            <div class="download">
+                                <button id="downAWSAccumSP" class="btn btn-primary btn-block">Download Data</button>
+                            </div>
+                            {% endif %}
+                            {% endif %}
+                            <!--  -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Right panel -->
+        <div class="col-sm-9 main box">
+            <ul class="nav nav-tabs" id="myTab">
+                <li class="active"><a href="#dispawsts" data-toggle="tab">AWS Time Series</a></li>
+                <li><a href="#dispawssp" data-toggle="tab">AWS Map</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="dispawsts">
+                    <div id="contAWSGraph"></div>
+                </div>
+                <div class="tab-pane" id="dispawssp">
+                    <div id="mapAWSVars"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript">
+var DATA_USERS = JSON.parse('{{ dataUser | tojson }}');
+var MTO_INIT = JSON.parse('{{ metInfo | tojson }}');
+</script>
+<!--  -->
+{% if session.logged_in %}
+{% if session.data.useraction == 0 %}
+<script type="text/javascript" src="{{ url_for('static', filename='lib/highcharts-10.2.1/modules/export-data.js') }}"></script>
+<!-- <script type="text/javascript" src="{{ url_for('aws.static', filename='js/export-AWS-AccumulRain.js') }}"></script> -->
+{% endif %}
+{% endif %}
+<script type="text/javascript" src="{{ url_for('static', filename='geojson/country-boundaries.geojson') }}"></script>
+<script type="text/javascript" src="{{ url_for('aws.static', filename='js/aws-display-data.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('aws.static', filename='js/params-AWS-AccumulRain.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/print-screen-map.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('aws.static', filename='js/display-AWS-AccumulRain.js') }}"></script>
+{% endblock %}

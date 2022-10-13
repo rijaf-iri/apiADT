@@ -1,0 +1,37 @@
+[
+{
+    "value": "openstreetmap",
+    "name": "OpenStreetMap Mapnik"
+},
+{
+    "value": "mapboxsatellitestreets",
+    "name": "Mapbox Satellite Streets"
+},
+{
+    "value": "mapboxsatellite",
+    "name": "Mapbox Satellite"
+},
+{
+    "value": "mapboxstreets",
+    "name": "Mapbox Streets"
+},
+{
+    "value": "mapboxoutdoors",
+    "name": "Mapbox Outdoors"
+},
+{
+    "value": "mapboxlight",
+    "name": "Mapbox Light"
+},
+{
+    "value": "cartodb-dark",
+    "name": "CartoDB DarkMatter"
+},
+{
+    "value": "esriworldimagery",
+    "name": "ESRI World Imagery"
+},
+{
+    "value": "googlemaps",
+    "name": "Google Maps"
+}]

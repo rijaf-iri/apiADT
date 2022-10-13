@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+{% block title %} {{metInfo.pageTitle}} {% endblock %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/leaflet-1.9.0/leaflet.css') }}">
+<script type="text/javascript" src="{{ url_for('static', filename='lib/leaflet-1.9.0/leaflet.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/Plugins-leaflet/L.Control.MousePosition/L.Control.MousePosition.css') }}">
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/L.Control.MousePosition/L.Control.MousePosition.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/Leaflet.PointInPolygon/wise-leaflet-pip.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('auth.static', filename='css/user-management.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/leaflet-site.css') }}" />
+{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row wrapper">
+        <!-- Left Panel -->
+        <div class="col-sm-3 input-sidebar-left">
+            <div class="row">
+                <div class="col-md-12 sidebar box">
+                    <div class="input-container">
+                        <div class="input-container-title">
+                            <span>Users Management</span>
+                            <span class="glyphicon glyphicon-plus input-container-icon"></span>
+                        </div>
+                        <div class="input-container-content">
+                            <br>
+                            <div>
+                                <a id="createNewUser">
+                                    <button type="button" class="btn btn-primary btn-block">Create New User</button>
+                                </a>
+                            </div>
+                            <div>
+                                <a id="displayUsers">
+                                    <button type="button" class="btn btn-primary btn-block">List All Users</button>
+                                </a>
+                            </div>
+                            <div>
+                                <a id="editUser">
+                                    <button type="button" class="btn btn-primary btn-block">Modify User Account</button>
+                                </a>
+                            </div>
+                            <div>
+                                <a id="removeUser">
+                                    <button type="button" class="btn btn-primary btn-block">Remove User</button>
+                                </a>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Right panel -->
+        <div class="col-sm-9 main box">
+            <ul class="nav nav-tabs" id="myTab">
+                <li class="active"><a href="#createUserTab" data-toggle="tab">User Creation</a></li>
+                <li><a href="#selectSTNTab" data-toggle="tab">Stations Selection</a></li>
+                <li><a href="#dispUserTab" data-toggle="tab">List of All Users</a></li>
+                <li><a href="#removeUserTab" data-toggle="tab">Remove User</a></li>
+                <li><a href="#editUserTab" data-toggle="tab">Edit User</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="createUserTab">
+                    <div id="register-cont">
+                        {% if registred_ok %}
+                        {% include 'create_user_reply.html' %}
+                        {% else %}
+                        {% include 'create_user_form.html' %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="tab-pane" id="selectSTNTab">
+                    <div id="selectSTNform">
+                    </div>
+                </div>
+                <div class="tab-pane" id="dispUserTab">
+                    <div id="idTable" class="table-responsive">
+                    </div>
+                    <hr>
+                    <div id="userInfos"></div>
+                </div>
+                <div class="tab-pane" id="removeUserTab">
+                    {% include 'remove_user_form.html' %}
+                    <div id="rmUserTable"></div>
+                </div>
+                <div class="tab-pane" id="editUserTab">
+                    {% include 'edit_user_form.html' %}
+                    <div id="editUserTable"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript">
+var DATA_USERS = JSON.parse('{{ dataUser | tojson }}');
+var MTO_INIT = JSON.parse('{{ metInfo | tojson }}');
+var JSON_FLAT = [];
+</script>
+<script type="text/javascript" src="{{ url_for('auth.static', filename='js/user-aws-selection.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('auth.static', filename='js/user-aws-map.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('auth.static', filename='js/user-management.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='geojson/subdivision_names.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='geojson/subdivision1.geojson') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='geojson/subdivision2.geojson') }}"></script>
+{% endblock %}

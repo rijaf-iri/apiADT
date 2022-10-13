@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+{% block title %} {{metInfo.pageTitle}} {% endblock %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/leaflet-1.9.0/leaflet.css') }}">
+<script type="text/javascript" src="{{ url_for('static', filename='lib/leaflet-1.9.0/leaflet.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/Plugins-leaflet/L.Control.MousePosition/L.Control.MousePosition.css') }}">
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/L.Control.MousePosition/L.Control.MousePosition.js') }}"></script>
+<!--  -->
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/Leaflet.Spin-1.1.2/spin.js/spin.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/Leaflet.Spin-1.1.2/leaflet.spin.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/leaflet-search/src/leaflet-search.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/Leaflet-easyPrint/bundle.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('aws.static', filename='css/gridded-map.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/leaflet-site.css') }}" />
+{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row wrapper">
+        <!-- Left Panel -->
+        <div class="col-sm-3 input-sidebar-left">
+            <div class="row">
+                <div class="col-md-12 sidebar box">
+                    <div class="input-container">
+                        <div class="input-container-title">
+                            <span>Contour Map Test</span>
+                            <span class="glyphicon glyphicon-plus input-container-icon"></span>
+                        </div>
+                        <div class="input-container-content">
+                            <div>
+                                <button id="displayGrdData" class="btn btn-primary btn-block"> Display Data </button>
+                            </div>
+                            <!--  -->
+                            <div id="colKeyMapVar"></div>
+                            <!--  -->
+                            <!--  -->
+                            <div class="download">
+                                <button type="button" id="downLeafletMap" class="btn btn-primary btn-block"> Download Map </button>
+                            </div>
+                            <!--  -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Right panel -->
+        <div class="col-sm-9 main box">
+            <ul class="nav nav-tabs" id="myTab">
+                <li class="active"><a href="#mapgridded" data-toggle="tab">Contour Map</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="mapgridded">
+                    <!--  -->
+                    <div class="leaflet-map-wrapper">
+                        <div class="leaflet-map-row div-row1">
+                            <div class="leaflet-map-col div-title">Contour Map </div>
+                            <div class="leaflet-map-col div-empty"></div>
+                        </div>
+                        <div class="leaflet-map-row div-row2">
+                            <div id="mapGriddedDisp" class="leaflet-map-col div-cont"></div>
+                            <div class="leaflet-map-col div-ckey"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript">
+var DATA_USERS = JSON.parse('{{ dataUser | tojson }}');
+var MTO_INIT = JSON.parse('{{ metInfo | tojson }}');
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename='geojson/country-boundaries.geojson') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/print-screen-map.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('aws.static', filename='js/display-AWS-contour.js') }}"></script>
+{% endblock %}
