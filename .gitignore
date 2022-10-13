@@ -142,3 +142,7 @@ clean_py.sh
 /scripts
 /venv
 /flask_session
+/app/static/geojson/*
+!/app/static/geojson/.gitkeep
+/app/static/tif/*
+!/app/static/tif/.gitkeep
