@@ -455,7 +455,7 @@ function addMapControlLayers(baseMapList, withImagePNG = true) {
     // 
     $(selector + ' ' + layers_base).empty();
     $(selector + ' ' + layers_base).append(selectLayerControl(baseMapList));
-    $(selector + ' ' + layers_overlays).find('input[type=checkbox]').click();
+    // $(selector + ' ' + layers_overlays).find('input[type=checkbox]').click();
 
     var kol0 = country_basemap.options.style.color;
     var lwd0 = country_basemap.options.style.weight;
