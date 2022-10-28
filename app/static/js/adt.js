@@ -1,5 +1,5 @@
-// var TS_DATE = new Date();
-var TS_DATE = new Date(2020, 10, 30, 23, 50, 0);
+var TS_DATE = new Date();
+// var TS_DATE = new Date(2020, 10, 30, 23, 50, 0);
 
 /////////////////
 // change to 0 in production
