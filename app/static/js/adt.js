@@ -489,7 +489,7 @@ function getDateMap1Dekad() {
     return daty;
 }
 
-function fromatDateMap1Dekad() {
+function formatDateMap1Dekad() {
     var year3 = $("#year3 option:selected").val();
     var month3 = $("#month3 option:selected").val();
     var dekad3 = $("#dekad3 option:selected").val();
@@ -757,7 +757,7 @@ function getDateTimeMapData() {
             daty = formatDateMap1Pentad();
             break;
         case "dekadal":
-            daty = fromatDateMap1Dekad();
+            daty = formatDateMap1Dekad();
             break;
         case "monthly":
             daty = formatDateMap1Month();
